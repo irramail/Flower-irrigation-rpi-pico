@@ -1,0 +1,59 @@
+diff --git a/gpio/hello_7segment/hello_7segment.c b/gpio/hello_7segment/hello_7segment.c
+index a10c8e2..4bbec9e 100644
+--- a/gpio/hello_7segment/hello_7segment.c
++++ b/gpio/hello_7segment/hello_7segment.c
+@@ -63,30 +63,41 @@ int main() {
+     // be floating.
+     gpio_pull_up(BUTTON_GPIO);
+
+-    int val = 0;
++//    int val = 0;
+     while (true) {
+         // Count upwards or downwards depending on button input
+         // We are pulling down on switch active, so invert the get to make
+         // a press count downwards
+-        if (!gpio_get(BUTTON_GPIO)) {
+-            if (val == 9) {
+-                val = 0;
+-            } else {
+-                val++;
+-            }
+-        } else if (val == 0) {
+-            val = 9;
+-        } else {
+-            val--;
+-        }
++//        if (!gpio_get(BUTTON_GPIO)) {
++//            if (val == 9) {
++//                val = 0;
++//            } else {
++//                val++;
++//            }
++//        } else if (val == 0) {
++//            val = 9;
++//        } else {
++//            val--;
++//        }
+
+         // We are starting with GPIO 2, our bitmap starts at bit 0 so shift to start at 2.
+-        int32_t mask = bits[val] << FIRST_GPIO;
++        int32_t mask = bits[8] << FIRST_GPIO;
+
+         // Set all our GPIO's in one go!
+         // If something else is using GPIO, we might want to use gpio_put_masked()
+         gpio_set_mask(mask);
+-        sleep_ms(250);
++        sleep_ms(180000);
++        gpio_clr_mask(mask);
++
++
++
++
++        mask = bits[1] << FIRST_GPIO;
++
++        // Set all our GPIO's in one go!
++        // If something else is using GPIO, we might want to use gpio_put_masked()
++        gpio_set_mask(mask);
++        sleep_ms(86340000);
+         gpio_clr_mask(mask);
+     }
